@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Фото</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+    background:#111;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial;
+}
+button{
+    padding:20px 40px;
+    font-size:28px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+img{
+    display:none;
+    width:100vw;
+    height:100vh;
+    object-fit:cover;
+}
+</style>
+
+</head>
+<body>
+
+<button id="btn">📷 Посмотреть фото</button>
+
+<img id="photo" src="picture.jpg">
+
+<audio id="audio">
+    <source src="sound.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const btn = document.getElementById("btn");
+const photo = document.getElementById("photo");
+const audio = document.getElementById("audio");
+
+btn.onclick = async () => {
+    btn.style.display = "none";
+    photo.style.display = "block";
+
+    try {
+        audio.volume = 1;
+        await audio.play();
+    } catch(e) {
+        alert("Не удалось воспроизвести звук.");
+    }
+
+    if (navigator.vibrate) {
+        navigator.vibrate([300,150,300]);
+    }
+
+    document.documentElement.requestFullscreen?.();
+};
+</script>
+
+</body>
+</html>
